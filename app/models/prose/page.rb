@@ -15,7 +15,7 @@ module Prose
     scope :reversed_nested_set, ->{ order("lft DESC") }
 
     def should_generate_new_friendly_id?
-      slug.blank? || title.changed?
+      slug.blank? || title_changed?
     end
 
     #cms organization methods
