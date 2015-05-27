@@ -1,5 +1,5 @@
 = Prose
-[![Code Climate](https://codeclimate.com/github/jaemo/prose/badges/gpa.svg)](https://codeclimate.com/github/jaemo/prose)
+{<img src="https://codeclimate.com/github/jaemo/prose/badges/gpa.svg" />}[https://codeclimate.com/github/jaemo/prose]
 == Project Aims
 Prose is a general purpose CMS that assumes very little about how you want to use it. The goals of this project and related works are to create a very modular, a la carte type CMS framework using the current version of Rails.
 
