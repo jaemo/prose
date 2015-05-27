@@ -1,4 +1,5 @@
 = Prose
+[![Code Climate](https://codeclimate.com/github/jaemo/prose/badges/gpa.svg)](https://codeclimate.com/github/jaemo/prose)
 == Project Aims
 Prose is a general purpose CMS that assumes very little about how you want to use it. The goals of this project and related works are to create a very modular, a la carte type CMS framework using the current version of Rails.
 
@@ -6,3 +7,16 @@ The aim of this specific gem is to provide the core functionality.
 The intent is to create several adaptors to plug into prose in order to provide additional capabilities.
 All this means is that prose-core is the dumb container that holds the content and meta that makes up the site.  If, for example, you want to edit using Alhoa, create an adaptor.
 This project rocks and uses MIT-LICENSE.
+
+=== Main Components
+There are 4 models that make up the core of Prose.
+* Page
+* Template
+* Region
+* Asset
+
+Pages can have many regions, each of which may container zero or more assets.
+Pages will render in the layout specified by their association to that model.
+Regions are mapped to templates: For example, the home page may have a 'slideshow' region.
+
+TODO: The process of editing and saving content
