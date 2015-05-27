@@ -1,3 +1,8 @@
 = Prose
+== Project Aims
+Prose is a general purpose CMS that assumes very little about how you want to use it. The goals of this project and related works are to create a very modular, a la carte type CMS framework using the current version of Rails.
 
+The aim of this specific gem is to provide the core functionality.
+The intent is to create several adaptors to plug into prose in order to provide additional capabilities.
+All this means is that prose-core is the dumb container that holds the content and meta that makes up the site.  If, for example, you want to edit using Alhoa, create an adaptor.
 This project rocks and uses MIT-LICENSE.
