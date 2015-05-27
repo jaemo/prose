@@ -10,6 +10,7 @@ gem 'friendly_id'
 gem 'haml'
 gem 'guard-rspec'
 gem 'pry-rails'
+gem "codeclimate-test-reporter", group: :test, require: nil
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing
