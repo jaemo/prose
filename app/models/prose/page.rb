@@ -1,9 +1,9 @@
 module Prose
   class Page < ActiveRecord::Base
-    belongs_to :template, class_name: "Prose::Template"
-    has_many :page_region_assets, class_name: "Prose::PageRegionAsset"
-    has_many :regions, class_name: "Prose::Region", through: :page_region_assets
-    has_many :assets, class_name: "Prose::Asset", through: :page_region_assets
+    belongs_to :template
+    has_many :page_region_assets, dependent: :destroy
+    has_many :regions, through: :page_region_assets
+    has_many :assets, through: :page_region_assets
 
     validates :title, :menu_title,  presence: true
     acts_as_nested_set
@@ -23,21 +23,17 @@ module Prose
       region.asset_content(self)
     end
 
-    def region_content_for(region)
-      region.raw_content(self)
-    end
 
     def section
       self_and_ancestors.select{|p| p.depth == 1}.first
     end
 
     def has_content_in?(placeholder)
-      r = Prose::Region.find_by_placeholder(placeholder)
-      PageRegionCmsAsset.where(:page_id => id, :region_id => r.id).size > 0
+      page_region_assets.collect{|pra| pra.region.placeholder == placeholder}.any?
     end
 
     def region_assets_for(region)
-      PageRegionCmsAsset.where(:page_id => id, :region_id => region.id)
+      page_region_assets.where(region_id: region.id).collect{|pra| pra.asset}
     end
 
     def title_with_depth

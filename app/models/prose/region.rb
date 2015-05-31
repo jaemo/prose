@@ -3,12 +3,12 @@ module Prose
 
     include ActiveModel::Serializers::JSON
 
-    has_many :template_regions, class_name: "Prose::TemplateRegion"
-    has_many :templates, class_name: "Prose::Template", through: :template_regionsa
+    has_many :template_regions, dependent: :destroy
+    has_many :templates, through: :template_regions
 
-    has_many :page_region_assets, class_name: "Prose::PageRegionAsset"
-    has_many :assets, class_name: "Prose::Asset", through: :page_region_assets
-    has_many :pages, class_name: "Prose::Page", through: :page_region_assets
+    has_many :page_region_assets, dependent: :destroy
+    has_many :assets, through: :page_region_assets
+    has_many :pages, through: :page_region_assets
 
     validates :name, :placeholder, presence: true
     validates :placeholder, uniqueness: true

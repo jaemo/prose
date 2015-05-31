@@ -34,5 +34,70 @@ module Prose
         expect(subject).to eq(region.asset_content(page))
       end
     end
+
+    describe "#section" do
+      context "page depth is 1"
+        let(:child_page){ create(:prose_page, :child_page) }
+        before do
+          child_page.move_to_child_of(page)
+        end
+        subject{ child_page.section }
+        it "returns itself" do
+          expect(subject).to eq(child_page)
+        end
+      end
+      context "page depth is > 1" do
+        let(:child_page){ create(:prose_page, :child_page) }
+        let(:even_childer_page){ create(:prose_page, :child_page) }
+        before do
+          child_page.move_to_child_of(page)
+          even_childer_page.move_to_child_of(child_page)
+        end
+        subject{ even_childer_page.section }
+        it "returns the parent" do
+          expect(subject).to eq(child_page)
+        end
+      end
+      context "page depth is > 2" do
+        let(:child_page){ create(:prose_page, :child_page) }
+        let(:even_childer_page){ create(:prose_page, :child_page) }
+        let(:even_childerer_page){ create(:prose_page, :child_page) }
+        before do
+          child_page.move_to_child_of(page)
+          even_childer_page.move_to_child_of(child_page)
+          even_childerer_page.move_to_child_of(even_childer_page)
+        end
+        subject{ even_childer_page.section }
+        it "returns the parent" do
+          expect(subject).to eq(child_page)
+        end
+      end
+
+      describe "#has_content_in?(placeholder)" do
+        let(:page_region_asset){ create(:prose_page_region_asset) }
+        let(:region){ page_region_asset.region }
+        let(:unused_region){ create(:prose_region, :another_region) }
+        let(:page){ page_region_asset.page }
+        subject{ page.has_content_in?(region.placeholder) }
+        it "returns true if a page has content in the region" do
+          expect(subject).to eq(true)
+        end
+
+        it "returns false if a page has not content in that region" do
+          expect(page.has_content_in?(unused_region.placeholder)).to eq(false)
+        end
+      end
+
+      describe "#region_assets_for(region)" do
+        let(:page){ create(:prose_page) }
+        let(:region){ create(:prose_region) }
+        let(:asset){ create(:prose_asset) }
+        let(:pra){ create(:prose_page_region_asset, page: page, region: region, asset: asset) }
+        subject{ page.region_assets_for(region) }
+        it "returns the assets for this region" do
+          pra.page = page
+          expect(subject).to eq([asset])
+        end
+      end
+    end
   end
-end

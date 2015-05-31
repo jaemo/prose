@@ -15,7 +15,9 @@ module Prose
     end
     describe "#serialized_assets_for" do
       it "returns an array of assets with their content hashes deserialized and the raw text extracted" do
-        expect(region.serialized_assets_for(page)).to include("content" => "MyText")
+
+        expect(region.serialized_assets_for(page).first["content"]).to include("MyText")
+
       end
     end
 

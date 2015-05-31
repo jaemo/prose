@@ -12,4 +12,9 @@ FactoryGirl.define do
     meta_title "MyString"
   end
 
+  trait :child_page do
+    title "Child Page"
+    menu_title "Child Page"
+  end
+
 end
